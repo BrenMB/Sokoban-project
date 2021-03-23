@@ -1,0 +1,25 @@
+#container{
+  position: relative;
+  width: 600px;
+  height: 600px;
+}
+
+table{
+  position:absolute;
+  border: 1px solid black;
+  background-color: cadetblue;
+}
+
+td{
+  background-color: darkblue;
+  width: 5px;
+  height: 5px;
+}
+
+.personaje {
+  background-color: ghostwhite;
+}
+
+.cajaM{
+  background-color:brown;
+}
