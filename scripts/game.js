@@ -3,25 +3,6 @@ var mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
 console.log(mapa)
 
 //fnc start level
-// const
-
-// personaje
-const personaje = {
-  x : 5,
-  y : 5,
-  dir : 0
-}
-// caja movible
-const cajaM = {
-  x : 3,
-  y : 3,
-  dir : 0
-}
-// GEMA
-const gema = {
-  x : 3,
-  y : 7
-}
 
 // 0 = vacio
 // 1 = personaje
@@ -30,13 +11,55 @@ const gema = {
 // 4 = gema
 
 
+const personaje = {}
+const caja = []
+
 // esta func posicionara cada elem(persj,block)
-function updateMap (){
+function updateLevel (level) {
+
+  if (Object.keys(personaje).length === 0 ) {
+
+    personaje.x   = level.personaje.x
+    personaje.y   = level.personaje.y
+    personaje.dir = level.personaje.dir
+
+  }
+  
+  if (caja.length === 0 ) { 
+
+    count = 0
+   
+    for (let i = 0; i < level.cajas.length; i++) {
+
+      const obj = {}
+      obj.x = level.cajas[i].x
+      obj.y = level.cajas[i].y
+      obj.dir = level.cajas[i].dir
+      caja.push(obj)
+
+    }
+
+    
+  }
+  
+  console.log(caja)
   mapa[personaje.x][personaje.y] = 1
-  mapa[cajaM.x][cajaM.y] = 3
-  mapa[gema.x][gema.y] = 4
+
+  for (let i = 0; i < caja.length; i++) {
+    mapa[caja[i].x][caja[i].y] = 3
+  
+  }
+
+  // for (let i = 0; i < level.gema.length; i++) {
+  //   mapa[level.gema[i][`gema${i}`].x][level.gema[i][`gema${i}`].y] = 4
+  
+  // }
+  
+  // mapa[personaje.x][personaje.y] = 1
+  // mapa[cajaM.x][cajaM.y] = 3
+  // mapa[gema.x][gema.y] = 4
   printBoard()
-  win()
+  // win()
 }
 
 function printBoard(){
@@ -45,12 +68,12 @@ function printBoard(){
       //elem cada valor de la matriz en la tabla
       const elem = document.querySelector(`.row${r + 1}>.colm${c + 1}`)
       elem.classList.remove('personaje')
-      elem.classList.remove('cajaM')
+      elem.classList.remove('caja')
       if (mapa[r][c] === 1)  {
         elem.classList.add('personaje')
       }
       if (mapa[r][c] === 3)  {
-        elem.classList.add('cajaM')
+        elem.classList.add('caja')
       }
       if (mapa[r][c] === 4) {
         elem.classList.add('gema')
@@ -62,14 +85,14 @@ function printBoard(){
 
 function move () {
   mapa[personaje.x][personaje.y] = 0
-  mapa[cajaM.x][cajaM.y] = 0
+  // mapa[cajaM.x][cajaM.y] = 0
 
   movPlayer()
 
-  if (personaje.x === cajaM.x && personaje.y === cajaM.y){
-    movBox()
-  }
-  updateMap()
+  // if (personaje.x === cajaM.x && personaje.y === cajaM.y){
+  //   movBox()
+  // }
+  updateLevel()
 
 }
 
@@ -110,15 +133,16 @@ function win () {
   if (cajaM.x === gema.x && cajaM.y === gema.y){
     const elem = document.querySelector(`.row${cajaM.x + 1}>.colm${cajaM.y + 1}`)
     elem.classList.remove('gema')
-    elem.classList.add('cajaM')
+    elem.classList.add('caja')
     setTimeout(function(){alert("YOU WIN!!")}, 300)
   }
 }
 
-function animate () {
-  updateMap()
+function startLevel () {
+
+  updateLevel(levels.level1)
 }
-animate()
+startLevel()
 // esto sucede siempre que clikeemos una tecla
 
 document.addEventListener ('keydown', function(e){
