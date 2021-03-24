@@ -2,6 +2,9 @@
 var mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
 console.log(mapa)
 
+//fnc start level
+// const
+
 // personaje
 const personaje = {
   x : 5,
@@ -13,6 +16,11 @@ const cajaM = {
   x : 3,
   y : 3,
   dir : 0
+}
+// GEMA
+const gema = {
+  x : 3,
+  y : 7
 }
 
 // 0 = vacio
@@ -26,7 +34,9 @@ const cajaM = {
 function updateMap (){
   mapa[personaje.x][personaje.y] = 1
   mapa[cajaM.x][cajaM.y] = 3
+  mapa[gema.x][gema.y] = 4
   printBoard()
+  win()
 }
 
 function printBoard(){
@@ -41,6 +51,9 @@ function printBoard(){
       }
       if (mapa[r][c] === 3)  {
         elem.classList.add('cajaM')
+      }
+      if (mapa[r][c] === 4) {
+        elem.classList.add('gema')
       }
     })
   })
@@ -57,7 +70,7 @@ function move () {
     movBox()
   }
   updateMap()
-  
+
 }
 
 function movPlayer() {
@@ -90,7 +103,16 @@ function movBox () {
     cajaM.y === 0 ? cajaM.y : cajaM.y--
     if (cajaM.y === 0 && personaje.y === 0) { personaje.y++ }
   }
+  
+}
 
+function win () {
+  if (cajaM.x === gema.x && cajaM.y === gema.y){
+    const elem = document.querySelector(`.row${cajaM.x + 1}>.colm${cajaM.y + 1}`)
+    elem.classList.remove('gema')
+    elem.classList.add('cajaM')
+    setTimeout(function(){alert("YOU WIN!!")}, 300)
+  }
 }
 
 function animate () {
