@@ -10,9 +10,10 @@ console.log(mapa)
 // 3 = box movb
 // 4 = gema
 
-
+//elementos
 const personaje = {}
 const caja = []
+const gema = []
 
 // esta func posicionara cada elem(persj,block)
 function updateLevel (level) {
@@ -27,8 +28,6 @@ function updateLevel (level) {
   
   if (caja.length === 0 ) { 
 
-    count = 0
-   
     for (let i = 0; i < level.cajas.length; i++) {
 
       const obj = {}
@@ -38,30 +37,46 @@ function updateLevel (level) {
       caja.push(obj)
 
     }
-
-    
   }
   
-  console.log(caja)
+  if (gema.length === 0 ) { 
+
+    for (let i = 0; i < level.gemas.length; i++) {
+
+      const obj = {}
+      obj.x = level.gemas[i].x
+      obj.y = level.gemas[i].y
+      gema.push(obj)
+
+    }
+
+  }
+  // console.log(gema)
   mapa[personaje.x][personaje.y] = 1
-
-  for (let i = 0; i < caja.length; i++) {
-    mapa[caja[i].x][caja[i].y] = 3
   
-  }
+  
+    for (let i = 0; i < caja.length; i++) {
+      mapa[caja[i].x][caja[i].y] = 3
+    
+    }
+
+    for (let i = 0; i < gema.length; i++) {
+      mapa[gema[i].x][gema[i].y] = 4
+    
+    }
 
   // for (let i = 0; i < level.gema.length; i++) {
-  //   mapa[level.gema[i][`gema${i}`].x][level.gema[i][`gema${i}`].y] = 4
+    //   mapa[level.gema[i][`gema${i}`].x][level.gema[i][`gema${i}`].y] = 4
+    
+    // }
+    
+    // mapa[personaje.x][personaje.y] = 1
+    // mapa[cajaM.x][cajaM.y] = 3
+    // mapa[gema.x][gema.y] = 4
+    printBoard()
+    // win()
+  }
   
-  // }
-  
-  // mapa[personaje.x][personaje.y] = 1
-  // mapa[cajaM.x][cajaM.y] = 3
-  // mapa[gema.x][gema.y] = 4
-  printBoard()
-  // win()
-}
-
 function printBoard(){
   mapa.forEach((row, r)   => { 
     row.forEach((colm, c) => {
@@ -85,9 +100,17 @@ function printBoard(){
 
 function move () {
   mapa[personaje.x][personaje.y] = 0
-  // mapa[cajaM.x][cajaM.y] = 0
+
+  for (let i = 0; i < caja.length; i++) {
+    mapa[caja[i].x][caja[i].y] = 0
+  }
 
   movPlayer()
+
+  for (let i = 0; i < caja.length; i++) {
+    if (personaje.x === caja[i].x && personaje.y === caja[i].y){ movBox(i) }
+
+  }
 
   // if (personaje.x === cajaM.x && personaje.y === cajaM.y){
   //   movBox()
@@ -98,44 +121,122 @@ function move () {
 
 function movPlayer() {
   // 0 = up, 3 = right, 6 = down, 9 = left
+  for (let i = 0; i < gema.length; i++) {
+    if (personaje.x === gema[i].x && personaje.y === gema[i].y){
+      const elem = document.querySelector(`.row${personaje.x + 1}>.colm${personaje.y + 1}`)
+
+      elem.classList.add('gema')
+      elem.classList.remove('personaje2')
+      // setTimeout(function(){alert("YOU WIN!!")}, 300)
+      // console.log('hola')
+    }
+  }
   if (personaje.dir === 0) {personaje.x === 0 ? personaje.x : personaje.x--}
   if (personaje.dir === 3) {personaje.y === 9 ? personaje.y : personaje.y++}
   if (personaje.dir === 6) {personaje.x === 9 ? personaje.x : personaje.x++}
   if (personaje.dir === 9) {personaje.y === 0 ? personaje.y : personaje.y--}
- 
+
+  for (let i = 0; i < gema.length; i++) {
+    if (personaje.x === gema[i].x && personaje.y === gema[i].y){
+      const elem = document.querySelector(`.row${personaje.x + 1}>.colm${personaje.y + 1}`)
+
+      elem.classList.remove('gema')
+      elem.classList.add('personaje2')
+      // setTimeout(function(){alert("YOU WIN!!")}, 300)
+      // console.log('hola')
+    }
+  }
 }
 
-function movBox () {
+function movBox (ind) {
+  for (let i = 0; i < gema.length; i++) {
+    
+    if (caja[ind].x === gema[i].x && caja[ind].y === gema[i].y){
+      const elem = document.querySelector(`.row${caja[ind].x + 1}>.colm${caja[ind].y + 1}`)
+      elem.classList.remove('cajaOnGema')
+      elem.classList.add('gema')
+    }
+  }
 
-  if (personaje.dir === 0) {  
-    cajaM.x === 0 ? cajaM.x : cajaM.x-- 
-    if (cajaM.x === 0 && personaje.x === 0) { personaje.x++ }
+  if (personaje.dir === 0 ) {  
+    caja[ind].x === 0 ? caja.x : caja[ind].x-- 
+    if (caja[ind].x === 0 && personaje.x === 0) { personaje.x++ }
+    for (let i = 0; i < caja.length; i++) {
+      if (ind !== i){ 
+        if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y){
+          caja[ind].x++
+          personaje.x++
+        }
+      }
+    }
   }
 
   if (personaje.dir === 3) {
-    cajaM.y === 9 ? cajaM.y : cajaM.y++
-    if (cajaM.y === 9 && personaje.y === 9) { personaje.y-- }
+    caja[ind].y === 9 ? caja[ind].y : caja[ind].y++
+    if (caja[ind].y === 9 && personaje.y === 9) { personaje.y-- }
+    for (let i = 0; i < caja.length; i++) {
+      if (ind !== i){ 
+        if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y){
+          caja[ind].y--
+          personaje.y--
+        }
+      }
+    }
   }
 
   if (personaje.dir === 6) {
-    cajaM.x === 9 ? cajaM.x : cajaM.x++
-    if (cajaM.x === 9 && personaje.x === 9) { personaje.x-- }
+    caja[ind].x === 9 ? caja[ind].x : caja[ind].x++
+    if (caja[ind].x === 9 && personaje.x === 9) { personaje.x-- }
+    for (let i = 0; i < caja.length; i++) {
+      if (ind !== i){ 
+        if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y){
+          caja[ind].x--
+          personaje.x--
+        }
+      }
+    }
   }
 
   if (personaje.dir === 9) {
-    cajaM.y === 0 ? cajaM.y : cajaM.y--
-    if (cajaM.y === 0 && personaje.y === 0) { personaje.y++ }
+    caja[ind].y === 0 ? caja[ind].y : caja[ind].y--
+    if (caja[ind].y === 0 && personaje.y === 0) { personaje.y++ }
+    for (let i = 0; i < caja.length; i++) {
+      if (ind !== i){ 
+        if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y){
+          caja[ind].y++
+          personaje.y++
+        }
+      }
+    }
   }
-  
+  win(ind)
 }
 
-function win () {
-  if (cajaM.x === gema.x && cajaM.y === gema.y){
-    const elem = document.querySelector(`.row${cajaM.x + 1}>.colm${cajaM.y + 1}`)
-    elem.classList.remove('gema')
-    elem.classList.add('caja')
-    setTimeout(function(){alert("YOU WIN!!")}, 300)
+
+function win (ind) {
+  for (let i = 0; i < gema.length; i++) {
+    
+    if (caja[ind].x === gema[i].x && caja[ind].y === gema[i].y){
+      const elem = document.querySelector(`.row${caja[ind].x + 1}>.colm${caja[ind].y + 1}`)
+      elem.classList.remove('gema')
+      elem.classList.add('cajaOnGema')
+      trueWin()
+    }
   }
+}
+
+function trueWin () {
+  let count = 0;
+  for (let i = 0; i < gema.length; i++) {
+    for (let j= 0; j < caja.length; j++) {
+      if (gema[i].x === caja[j].x && gema[i].y === caja[j].y){
+        count++
+      }
+    }
+    
+  }
+  if (count === gema.length ) { setTimeout(function(){alert("YOU WIN!!")}, 300)}
+  
 }
 
 function startLevel () {
