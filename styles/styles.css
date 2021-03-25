@@ -11,7 +11,7 @@ table{
 }
 
 td{
-  background-color: darkblue;
+
   width: 5px;
   height: 5px;
 }
@@ -35,4 +35,9 @@ td{
 .personaje2 {
   background-color: ghostwhite;
 
+}
+.floor1{
+  background-image: url(/assets/images/Floor1.png);
+background-position: center;
+/* background-size: 60px; */
 }

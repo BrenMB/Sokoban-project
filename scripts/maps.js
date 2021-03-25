@@ -30,7 +30,7 @@ const levels = {
       y : 1
     },
     {
-      x : 6,
+      x : 0,
       y : 6
       
     }]
