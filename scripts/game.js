@@ -11,9 +11,9 @@ console.log(mapa)
 // 4 = gema
 
 //elementos
-const personaje = {}
-const caja = []
-const gema = []
+var personaje = {}
+var caja = []
+var gema = []
 
 // esta func posicionara cada elem(persj,block, gema) en la matriz
 //PARAMETRO  LEVELS.(level actual)
@@ -70,7 +70,20 @@ function printBoard() {
         elem.classList.add('caja')
       }
       if (mapa[r][c] === 4) {
+        if (r === personaje.x && c === personaje.y){
+          if (personaje.dir === 0){ elem.classList.add('personajeU')}
+          if (personaje.dir === 3){ elem.classList.add('personajeR')}
+          if (personaje.dir === 6){ elem.classList.add('personaje')}
+          if (personaje.dir === 9){ elem.classList.add('personajeL')}
+        }else{
         elem.classList.add('gema')
+        }
+        for (let i = 0; i < caja.length; i++) {
+          if (r === caja[i].x && c === caja[i].y) {
+            elem.classList.remove("gema")
+            elem.classList.add("caja")
+          }
+        }
       }
       if (mapa[r][c] === 0){
         elem.classList.add('floor1')
@@ -83,12 +96,8 @@ function printBoard() {
 function move() {
 
   //antes de mover personaje y cajas camabiamos sus valores anteriores a 0
-  mapa[personaje.x][personaje.y] = 0
-
-  for (let i = 0; i < caja.length; i++) {
-    mapa[caja[i].x][caja[i].y] = 0
-  }
-
+  mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
+  
   movPlayer()
 
   for (let i = 0; i < caja.length; i++) {
@@ -96,29 +105,13 @@ function move() {
 
   }
 
-  // for (let i = 0; i < gema.length; i++) {
-  //   mapa[gema[i].x][gema[i].y] = 0
-  // }
-
-
   updateLevel()
-
+  
 }
 
 //mueve el personaje en la matriz
 function movPlayer() {
   // 0 = up, 3 = right, 6 = down, 9 = left
-
-  //antes de moeverlo comprobamos si esta sobre gema y le cambiamos la clase
-  for (let i = 0; i < gema.length; i++) {
-    if (personaje.x === gema[i].x && personaje.y === gema[i].y) {
-      const elem = document.querySelector(`.row${personaje.x + 1}>.colm${personaje.y + 1}`)
-
-      elem.classList.add('gema')
-      elem.classList.remove('personaje2')
-     
-    }
-  }
 
   //depende de la posicion del personaje se mueve si no esta en borde 
   if (personaje.dir === 0) { personaje.x === 0 ? personaje.x : personaje.x-- }
@@ -126,43 +119,10 @@ function movPlayer() {
   if (personaje.dir === 6) { personaje.x === 9 ? personaje.x : personaje.x++ }
   if (personaje.dir === 9) { personaje.y === 0 ? personaje.y : personaje.y-- }
 
-  // pregunta si al mover el personaje estamos sobre gema
-  for (let i = 0; i < gema.length; i++) {
-
-    //pregunta si estamos sobre gema 
-    if (personaje.x === gema[i].x && personaje.y === gema[i].y) {
-
-      const elem = document.querySelector(`.row${personaje.x + 1}>.colm${personaje.y + 1}`)
-
-    //pregunta si estamos sobre caja
-      for (let j = 0; j < caja.length; j++) {
-        if (personaje.x === caja[j].x && personaje.y === caja[j].y) {
-          elem.classList.remove('personaje2')
-          break;
-
-          //actualizamos clase
-        } else {
-          elem.classList.remove('gema')
-          elem.classList.add('personaje2')
-
-        }
-      }
-    }
-  }
 }
 
 //se ejecuta cuando el perosnaje esta sobre una caja y le pasamos el parametro de la misma caja
 function movBox(ind) {
-
-  //antes de moeverlo comprobamos si esta sobre gema y le cambiamos la clase
-  for (let i = 0; i < gema.length; i++) {
-
-    if (caja[ind].x === gema[i].x && caja[ind].y === gema[i].y) {
-      const elem = document.querySelector(`.row${caja[ind].x + 1}>.colm${caja[ind].y + 1}`)
-      elem.classList.remove('cajaOnGema')
-      elem.classList.add('gema')
-    }
-  }
 
   // preguntamos la direccion del personaje para mover la caja
   if (personaje.dir === 0) {
@@ -227,15 +187,7 @@ function movBox(ind) {
     }
   }
 
-  //si personaje esta sobre gema al empujar la caja se actuaizan las clases
-  for (let i = 0; i < gema.length; i++) {
-    if (personaje.x === gema[i].x && personaje.y === gema[i].y) {
-      const elem = document.querySelector(`.row${personaje.x + 1}>.colm${personaje.y + 1}`)
-
-      elem.classList.remove('gema')
-      elem.classList.add('personaje2')
-    }
-  }
+  
   win(ind)
 }
 
@@ -245,9 +197,6 @@ function win(ind) {
 
     //si estaos sobre una, cambiamos clases y llamamos a trueWin
     if (caja[ind].x === gema[i].x && caja[ind].y === gema[i].y) {
-      const elem = document.querySelector(`.row${caja[ind].x + 1}>.colm${caja[ind].y + 1}`)
-      elem.classList.remove('gema')
-      elem.classList.add('cajaOnGema')
       trueWin()
     }
   }
@@ -270,16 +219,7 @@ function trueWin() {
 }
 
 //limpia las clases de css
-function cleanLevel(){
-  
-  mapa.forEach((row, r) => {
-    row.forEach((colm, c) => {
-      const elem = document.querySelector(`.row${r + 1}>.colm${c + 1}`)
-      elem.classList.remove('personaje2')
-      elem.classList.remove('cajaOnGema') 
-    })
-  })
-}
+
 
 
 // Se encarga de detectar nivel y limpiar el nivel anterior
@@ -300,7 +240,7 @@ function startLevel() {
   personaje.y = level.personaje.y
   personaje.dir = level.personaje.dir
 
-  cleanLevel()
+  
 
   //actualiuza posicion de cajas
   for (let i = 0; i < level.cajas.length; i++) {

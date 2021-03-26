@@ -46,13 +46,6 @@ td{
   background-size: 18px;
 }
 
-.personaje2 {
-  background-image: url(/assets/images/player.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 18px
-}
-
 
 
 .caja{
@@ -69,12 +62,6 @@ td{
   background-size: 25px;
 }
 
-.cajaOnGema {
-  background-image: url(/assets/images/boxM.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 16px;
-}
 
 
 .floor1{
