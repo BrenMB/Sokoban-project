@@ -46,6 +46,13 @@ td{
   background-size: 18px;
 }
 
+.stone {
+  background-image: url(/assets/images/stone.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+}
+
 
 
 .caja{

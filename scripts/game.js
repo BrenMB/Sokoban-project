@@ -2,16 +2,15 @@
 var mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
 console.log(mapa)
 
-//fnc start level
-
 // 0 = vacio
 // 1 = personaje
-// 2 = box inamv
+// 2 = stone
 // 3 = box movb
 // 4 = gema
 
 //elementos
 var personaje = {}
+var stone = []
 var caja = []
 var gema = []
 
@@ -20,10 +19,10 @@ var gema = []
 
 function updateLevel(level) {
 
-  //actualiza post de personaje en la matriz
+  //posit personaje en la matriz
   mapa[personaje.x][personaje.y] = 1
 
-  //actualiza post de caja en la matriz
+  //post caja en la matriz
   for (let i = 0; i < caja.length; i++) {
     mapa[caja[i].x][caja[i].y] = 3
 
@@ -34,6 +33,13 @@ function updateLevel(level) {
     mapa[gema[i].x][gema[i].y] = 4
 
   }
+
+   //actualiza post de stone en la matriz
+   for (let i = 0; i < stone.length; i++) {
+    mapa[stone[i].x][stone[i].y] = 2
+
+  }
+
 
   printBoard()
  
@@ -60,24 +66,28 @@ function printBoard() {
 
       //dependiendo del valor de la matriz anadimos diferentes elem(caja,gema..)
       if (mapa[r][c] === 1) {
-        if (personaje.dir === 0){ elem.classList.add('personajeU')}
-        if (personaje.dir === 3){ elem.classList.add('personajeR')}
-        if (personaje.dir === 6){ elem.classList.add('personaje')}
-        if (personaje.dir === 9){ elem.classList.add('personajeL')}
+
+        if (personaje.dir === 0) { elem.classList.add('personajeU') }
+        if (personaje.dir === 3) { elem.classList.add('personajeR') }
+        if (personaje.dir === 6) { elem.classList.add('personaje' ) }
+        if (personaje.dir === 9) { elem.classList.add('personajeL') }
 
       }
-      if (mapa[r][c] === 3) {
-        elem.classList.add('caja')
-      }
+      if (mapa[r][c] === 2) { elem.classList.add('stone') }
+
+      if (mapa[r][c] === 3) { elem.classList.add('caja') }
+
       if (mapa[r][c] === 4) {
-        if (r === personaje.x && c === personaje.y){
-          if (personaje.dir === 0){ elem.classList.add('personajeU')}
-          if (personaje.dir === 3){ elem.classList.add('personajeR')}
-          if (personaje.dir === 6){ elem.classList.add('personaje')}
-          if (personaje.dir === 9){ elem.classList.add('personajeL')}
-        }else{
-        elem.classList.add('gema')
+        if (r === personaje.x && c === personaje.y) {
+          if (personaje.dir === 0) { elem.classList.add('personajeU') }
+          if (personaje.dir === 3) { elem.classList.add('personajeR') }
+          if (personaje.dir === 6) { elem.classList.add('personaje' ) }
+          if (personaje.dir === 9) { elem.classList.add('personajeL') }
+
+        } else { 
+          elem.classList.add('gema') 
         }
+        
         for (let i = 0; i < caja.length; i++) {
           if (r === caja[i].x && c === caja[i].y) {
             elem.classList.remove("gema")
@@ -100,13 +110,23 @@ function move() {
   
   movPlayer()
 
+  for (let i = 0; i < stone.length; i++) {
+    if (personaje.x === stone[i].x && personaje.y === stone[i].y) {
+      
+      if (personaje.dir === 0) {  personaje.x++ }
+      if (personaje.dir === 3) {  personaje.y-- }
+      if (personaje.dir === 6) {  personaje.x-- }
+      if (personaje.dir === 9) {  personaje.y++ }
+    
+    }
+  }
+
   for (let i = 0; i < caja.length; i++) {
     if (personaje.x === caja[i].x && personaje.y === caja[i].y) { movBox(i) }
 
   }
-
   updateLevel()
-  
+  win()
 }
 
 //mueve el personaje en la matriz
@@ -135,9 +155,9 @@ function movBox(ind) {
 
     //pregunta si la caja que estamos moviendo esta sobre otra caja
     for (let i = 0; i < caja.length; i++) {
-
+      
       if (ind !== i) {
-
+        
         //si lo esta retrocede la caja y personaje en caso de cada direccion
         if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y) {
           caja[ind].x++
@@ -145,9 +165,15 @@ function movBox(ind) {
         }
       }
     }
+    for (let i  = 0 ; i < stone.length; i++) {
+      if (stone[i].x === caja[ind].x && stone[i].y === caja[ind].y) {
+        personaje.x++
+        caja[ind].x++
+      }
+    }
   }
-
-
+  
+  
   if (personaje.dir === 3) {
     caja[ind].y === 9 ? caja[ind].y : caja[ind].y++
     if (caja[ind].y === 9 && personaje.y === 9) { personaje.y-- }
@@ -159,8 +185,14 @@ function movBox(ind) {
         }
       }
     }
+    for (let i  = 0 ; i < stone.length; i++) {
+      if (stone[i].x === caja[ind].x && stone[i].y === caja[ind].y) {
+        personaje.y--
+        caja[ind].y--
+      }
+    }
   }
-
+  
   if (personaje.dir === 6) {
     caja[ind].x === 9 ? caja[ind].x : caja[ind].x++
     if (caja[ind].x === 9 && personaje.x === 9) { personaje.x-- }
@@ -172,8 +204,14 @@ function movBox(ind) {
         }
       }
     }
+    for (let i  = 0 ; i < stone.length; i++) {
+      if (stone[i].x === caja[ind].x && stone[i].y === caja[ind].y) {
+        personaje.x--
+        caja[ind].x--
+      }
+    }
   }
-
+  
   if (personaje.dir === 9) {
     caja[ind].y === 0 ? caja[ind].y : caja[ind].y--
     if (caja[ind].y === 0 && personaje.y === 0) { personaje.y++ }
@@ -186,24 +224,16 @@ function movBox(ind) {
       }
     }
   }
-
-  
-  win(ind)
-}
-
-//pregunta si la caja que estamos moviendo ha quedado sobre una gema
-function win(ind) {
-  for (let i = 0; i < gema.length; i++) {
-
-    //si estaos sobre una, cambiamos clases y llamamos a trueWin
-    if (caja[ind].x === gema[i].x && caja[ind].y === gema[i].y) {
-      trueWin()
+  for (let i  = 0 ; i < stone.length; i++) {
+    if (stone[i].x === caja[ind].x && stone[i].y === caja[ind].y) {
+      personaje.y++
+      caja[ind].y++
     }
   }
 }
 
 //pregunta si todas las gemas tienen una caja encima
-function trueWin() {
+function win() {
   let count = 0;
   for (let i = 0; i < gema.length; i++) {
     for (let j = 0; j < caja.length; j++) {
@@ -218,10 +248,6 @@ function trueWin() {
 
 }
 
-//limpia las clases de css
-
-
-
 // Se encarga de detectar nivel y limpiar el nivel anterior
 function startLevel() {
 
@@ -232,23 +258,16 @@ function startLevel() {
   mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
 
   //vaciar cajas y gemas de nivel anterior
-  caja.length = 0
-  gema.length = 0
-
+  caja.length  = 0
+  gema.length  = 0
+  stone.length = 0
   //actualiuza posicion de personaje
-  personaje.x = level.personaje.x
-  personaje.y = level.personaje.y
-  personaje.dir = level.personaje.dir
 
+  personaje = {...level.personaje}
   
-
   //actualiuza posicion de cajas
   for (let i = 0; i < level.cajas.length; i++) {
-
-    const obj = {}
-    obj.x = level.cajas[i].x
-    obj.y = level.cajas[i].y
-    obj.dir = level.cajas[i].dir
+    var obj = {...level.cajas[i]}
     caja.push(obj)
 
   }
@@ -256,14 +275,23 @@ function startLevel() {
   //actualiuza posicion de gemas
   for (let i = 0; i < level.gemas.length; i++) {
 
-    const obj = {}
-    obj.x = level.gemas[i].x
-    obj.y = level.gemas[i].y
+    const obj = {...level.gemas[i]}
     gema.push(obj)
 
   }
-  updateLevel(levels.level1)
+
+  //actualiuza posicion de stone
+  for (let i = 0; i < level.stone.length; i++) {
+
+    var obj = {...level.stone[i]}
+    stone.push(obj)
+
+  }
+
+  updateLevel(level)
 }
+
+
 //funcion iniciadora
 startLevel()
 
