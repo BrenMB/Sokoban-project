@@ -3,7 +3,7 @@ const levels = {
     personaje : {
       x : 5,
       y : 5,
-      dir : 0
+      dir : 6
     },
     cajas : [{
         x : 3,

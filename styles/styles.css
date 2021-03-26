@@ -25,6 +25,36 @@ td{
   background-size: 18px;
 }
 
+.personajeR{
+  background-image: url(/assets/images/playerR.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 12px;
+}
+
+.personajeL{
+  background-image: url(/assets/images/playerL.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 12px;
+}
+
+.personajeU{
+  background-image: url(/assets/images/playerU.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.personaje2 {
+  background-image: url(/assets/images/player.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px
+}
+
+
+
 .caja{
   background-image: url(/assets/images/boxM.png);
   background-position: center;
@@ -46,12 +76,6 @@ td{
   background-size: 16px;
 }
 
-.personaje2 {
-  background-image: url(/assets/images/player.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 18px
-}
 
 .floor1{
   background-image: url(/assets/images/Floor.png);
