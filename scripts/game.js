@@ -17,7 +17,7 @@ const gema = []
 
 // esta func posicionara cada elem(persj,block)
 function updateLevel(level) {//PARAMETRO , LEVELS.LEVEL1
-
+console.log(caja)
   mapa[personaje.x][personaje.y] = 1
 
 
@@ -50,6 +50,8 @@ function printBoard() {
       const elem = document.querySelector(`.row${r + 1}>.colm${c + 1}`)
       elem.classList.remove('personaje')
       elem.classList.remove('caja')
+      elem.classList.remove('floor1')
+      elem.classList.remove('gema')
 
       if (mapa[r][c] === 1) {
         elem.classList.add('personaje')

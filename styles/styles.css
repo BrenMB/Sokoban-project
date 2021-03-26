@@ -5,39 +5,58 @@
 }
 
 table{
+
   position:absolute;
   border: 1px solid black;
-  background-color: cadetblue;
+  background-image: url(/assets/images/Floor.png);
+  background-position: center;
+  background-size: 25px;
 }
 
 td{
-
   width: 5px;
   height: 5px;
 }
 
 .personaje {
-  background-color: ghostwhite;
+  background-image: url(/assets/images/player.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px;
 }
 
 .caja{
-  background-color:brown;
+  background-image: url(/assets/images/boxM.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 16px;
 }
 
 .gema{
-  background-color: chartreuse;
+  background-image: url(/assets/images/gema.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 25px;
 }
 
 .cajaOnGema {
-  background-color: rgb(104, 88, 67);
+  background-image: url(/assets/images/boxM.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 16px;
 }
 
 .personaje2 {
-  background-color: ghostwhite;
-
+  background-image: url(/assets/images/player.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px
 }
+
 .floor1{
-  background-image: url(/assets/images/Floor1.png);
+  background-image: url(/assets/images/Floor.png);
 background-position: center;
-/* background-size: 60px; */
+background-size: 25px;
+background-repeat: no-repeat;
+
 }
