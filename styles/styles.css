@@ -78,3 +78,15 @@ background-size: 25px;
 background-repeat: no-repeat;
 
 }
+
+#boxOnGema {
+  display: none;
+}
+
+#moveStone {
+  display: none;
+}
+
+#soundGame {
+  display: none;
+}

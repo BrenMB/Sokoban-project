@@ -8,6 +8,14 @@ console.log(mapa)
 // 3 = box movb
 // 4 = gema
 
+//audios
+const moveStone = new Audio ()
+moveStone.setAttribute('src', 'assets/sound/moveStone.wav')
+const boxOnGema = new Audio ()
+boxOnGema.setAttribute('src', 'assets/sound/boxOnGema.wav')
+const soundGame = new Audio ()
+soundGame.setAttribute('src', 'assets/sound/soundGame.mp3')
+
 //elementos
 var personaje = {}
 var stone = []
@@ -90,6 +98,7 @@ function printBoard() {
         
         for (let i = 0; i < caja.length; i++) {
           if (r === caja[i].x && c === caja[i].y) {
+           
             elem.classList.remove("gema")
             elem.classList.add("caja")
           }
@@ -144,6 +153,8 @@ function movPlayer() {
 //se ejecuta cuando el perosnaje esta sobre una caja y le pasamos el parametro de la misma caja
 function movBox(ind) {
 
+  var soundBox = true;
+
   // preguntamos la direccion del personaje para mover la caja
   if (personaje.dir === 0) {
 
@@ -151,7 +162,10 @@ function movBox(ind) {
     caja[ind].x === 0 ? caja.x : caja[ind].x--
 
     //caja y personaje estan en borde retrocede el personaje
-    if (caja[ind].x === 0 && personaje.x === 0) { personaje.x++ }
+    if (caja[ind].x === 0 && personaje.x === 0) { 
+      personaje.x++
+      soundBox = false
+     }
 
     //pregunta si la caja que estamos moviendo esta sobre otra caja
     for (let i = 0; i < caja.length; i++) {
@@ -169,14 +183,16 @@ function movBox(ind) {
       if (stone[i].x === caja[ind].x && stone[i].y === caja[ind].y) {
         personaje.x++
         caja[ind].x++
+        soundBox = false;
       }
     }
   }
   
-  
   if (personaje.dir === 3) {
     caja[ind].y === 9 ? caja[ind].y : caja[ind].y++
-    if (caja[ind].y === 9 && personaje.y === 9) { personaje.y-- }
+    if (caja[ind].y === 9 && personaje.y === 9) { personaje.y-- 
+    soundBox = false
+    }
     for (let i = 0; i < caja.length; i++) {
       if (ind !== i) {
         if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y) {
@@ -189,13 +205,17 @@ function movBox(ind) {
       if (stone[i].x === caja[ind].x && stone[i].y === caja[ind].y) {
         personaje.y--
         caja[ind].y--
+        soundBox = false;
       }
     }
   }
   
   if (personaje.dir === 6) {
     caja[ind].x === 9 ? caja[ind].x : caja[ind].x++
-    if (caja[ind].x === 9 && personaje.x === 9) { personaje.x-- }
+    if (caja[ind].x === 9 && personaje.x === 9) { 
+      personaje.x-- 
+      soundBox = false
+    }
     for (let i = 0; i < caja.length; i++) {
       if (ind !== i) {
         if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y) {
@@ -208,13 +228,17 @@ function movBox(ind) {
       if (stone[i].x === caja[ind].x && stone[i].y === caja[ind].y) {
         personaje.x--
         caja[ind].x--
+        soundBox = false;
       }
     }
   }
   
   if (personaje.dir === 9) {
     caja[ind].y === 0 ? caja[ind].y : caja[ind].y--
-    if (caja[ind].y === 0 && personaje.y === 0) { personaje.y++ }
+    if (caja[ind].y === 0 && personaje.y === 0) { 
+      personaje.y++ 
+      soundBox = false
+    }
     for (let i = 0; i < caja.length; i++) {
       if (ind !== i) {
         if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y) {
@@ -224,10 +248,20 @@ function movBox(ind) {
       }
     }
   }
+
   for (let i  = 0 ; i < stone.length; i++) {
     if (stone[i].x === caja[ind].x && stone[i].y === caja[ind].y) {
       personaje.y++
       caja[ind].y++
+      soundBox = false;
+    }
+  }
+  if (soundBox === true ) {
+    moveStone.play()
+  }
+  for (let i  = 0 ; i < gema.length; i++) {
+    if (gema[i].x === caja[ind].x && gema[i].y === caja[ind].y) {
+      boxOnGema.play()
     }
   }
 }
@@ -253,7 +287,7 @@ function startLevel() {
 
   //var que contiene los datos del nivel en el que estamos
   let level = levels.level1
-
+  soundGame.play()
   //crear matriz vacia
   mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
 
