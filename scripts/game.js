@@ -2,6 +2,8 @@
 var mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
 console.log(mapa)
 
+//?? sound
+
 // 0 = vacio
 // 1 = personaje
 // 2 = stone
@@ -12,7 +14,7 @@ console.log(mapa)
 const moveStone = new Audio ()
 moveStone.setAttribute('src', 'assets/sound/moveStone.wav')
 const boxOnGema = new Audio ()
-boxOnGema.setAttribute('src', 'assets/sound/boxOnGema.wav')
+boxOnGema.setAttribute('src', 'assets/sound/gemaSound.wav')
 const soundGame = new Audio ()
 soundGame.setAttribute('src', 'assets/sound/soundGame.mp3')
 
@@ -21,6 +23,7 @@ var personaje = {}
 var stone = []
 var caja = []
 var gema = []
+var currentLevel = null
 
 // esta func posicionara cada elem(persj,block, gema) en la matriz
 //PARAMETRO  LEVELS.(level actual)
@@ -48,7 +51,6 @@ function updateLevel(level) {
 
   }
 
-
   printBoard()
  
 }
@@ -59,8 +61,9 @@ function printBoard() {
   //recorre toda la matriz
   mapa.forEach((row, r) => {
     row.forEach((colm, c) => {
+
       //elem cada valor de la matriz en la tabla
-      const elem = document.querySelector(`.row${r + 1}>.colm${c + 1}`)
+      const elem = document.querySelector(`.row${r}>.colm${c}`)
       
       //limpiamos  todas las clases 
       elem.classList.remove('personaje')
@@ -282,21 +285,48 @@ function win() {
 
 }
 
+function selectLevel () {
+
+  currentLevel = levels.level1
+
+  var elem = document.getElementById("container")
+
+  for (let i = 0; i < currentLevel.row; i++) {
+    var fila = document.createElement("tr")
+
+    fila.classList.add(`row${i}`)
+    elem.appendChild(fila)
+
+    for (let j = 0; j < currentLevel.colm; j++) {
+
+      var columna = document.createElement("td")
+      columna.classList.add(`colm${j}`)
+      fila.appendChild(columna)
+  
+    }
+  }
+  startLevel()
+}
+
+function principalMenu () {
+
+
+}
 // Se encarga de detectar nivel y limpiar el nivel anterior
 function startLevel() {
-
+  var level = currentLevel
   //var que contiene los datos del nivel en el que estamos
-  let level = levels.level1
   soundGame.play()
-  //crear matriz vacia
-  mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
+  
+  //crear  mapa y matriz vacia
+  mapa = new Array(level.row).fill(null).map(e => new Array(level.colm).fill(0))
 
   //vaciar cajas y gemas de nivel anterior
   caja.length  = 0
   gema.length  = 0
   stone.length = 0
-  //actualiuza posicion de personaje
 
+  //actualiuza posicion de personaje
   personaje = {...level.personaje}
   
   //actualiuza posicion de cajas
@@ -327,7 +357,7 @@ function startLevel() {
 
 
 //funcion iniciadora
-startLevel()
+  // selectLevel()
 
 //detecta boton que pulsemos en teclado
 document.addEventListener('keydown', function (e) {

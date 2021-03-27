@@ -1,5 +1,7 @@
 const levels = {
   level1: {
+    row : 10,
+    colm : 10,
     personaje : {
       x : 5,
       y : 4,

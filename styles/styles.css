@@ -1,16 +1,22 @@
+body {
+  width: 7000px;
+  height: 7000px;
+}
+
 #container{
+
   position: relative;
-  width: 600px;
-  height: 600px;
+  width: 1000px;
+  height:1000px;
 }
 
 table{
-
   position:absolute;
   border: 1px solid black;
   background-image: url(/assets/images/Floor.png);
   background-position: center;
   background-size: 25px;
+  display: none;
 }
 
 td{
@@ -22,60 +28,57 @@ td{
   background-image: url(/assets/images/player.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 18px;
+  background-size: 70px;
 }
 
 .personajeR{
   background-image: url(/assets/images/playerR.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 12px;
+  background-size: 45px;
 }
 
 .personajeL{
   background-image: url(/assets/images/playerL.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 12px;
+  background-size: 45px;
 }
 
 .personajeU{
-  background-image: url(/assets/images/playerU.png);
+  background-image: url(/assets/images/playerUp.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 18px;
+  background-size: 70px;
 }
 
 .stone {
   background-image: url(/assets/images/stone.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 20px;
+  background-size: 90px;
 }
-
-
 
 .caja{
   background-image: url(/assets/images/boxM.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 16px;
+  background-size: 70px;
 }
 
 .gema{
-  background-image: url(/assets/images/gema.png);
+  background-image: url(/assets/images/gema-1.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 25px;
+  background-size: 50px;
 }
-
 
 
 .floor1{
   background-image: url(/assets/images/Floor.png);
-background-position: center;
-background-size: 25px;
-background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25px;
+  background-repeat: no-repeat;
 
 }
 
@@ -89,4 +92,45 @@ background-repeat: no-repeat;
 
 #soundGame {
   display: none;
+}
+
+#background {
+  height: 100%;
+  width: 100%;
+  background-image: url(/assets/images/menu.png);
+  background-repeat: no-repeat;
+  background-size: 1000px;
+  /*display: none*/
+
+}
+
+button {
+  border: none;
+  width: 400px;
+  height: 100px;
+  font-size: 40px;
+  font-weight: 900;
+  padding-top: 10px;
+  margin-left: 300px;
+  font-family: fantasy;
+  background-size: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-image: url(/assets/images/buttonMenu.png);
+}
+
+
+.botonStart {
+  margin-top: 400px;
+  
+  text-align: center;
+}
+
+.botonOptions {
+  margin-top: 40px;
+}
+
+.botonLevels {
+  margin-top: 40px;
 }
