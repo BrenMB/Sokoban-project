@@ -1,6 +1,7 @@
 //matriz mapa
-var mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
-console.log(mapa)
+var mapa 
+var mapaRow 
+var mapaColm
 
 //?? sound
 
@@ -45,8 +46,8 @@ function updateLevel(level) {
 
   }
 
-   //actualiza post de stone en la matriz
-   for (let i = 0; i < stone.length; i++) {
+  //actualiza post de stone en la matriz
+  for (let i = 0; i < stone.length; i++) {
     mapa[stone[i].x][stone[i].y] = 2
 
   }
@@ -118,7 +119,7 @@ function printBoard() {
 function move() {
 
   //antes de mover personaje y cajas camabiamos sus valores anteriores a 0
-  mapa = new Array(10).fill(null).map(e => new Array(10).fill(0))
+  mapa = new Array(mapaRow).fill(null).map(e => new Array(mapaColm).fill(0))
   
   movPlayer()
 
@@ -147,8 +148,8 @@ function movPlayer() {
 
   //depende de la posicion del personaje se mueve si no esta en borde 
   if (personaje.dir === 0) { personaje.x === 0 ? personaje.x : personaje.x-- }
-  if (personaje.dir === 3) { personaje.y === 9 ? personaje.y : personaje.y++ }
-  if (personaje.dir === 6) { personaje.x === 9 ? personaje.x : personaje.x++ }
+  if (personaje.dir === 3) { personaje.y === mapaColm -1 ? personaje.y : personaje.y++ }
+  if (personaje.dir === 6) { personaje.x === mapaRow  -1 ? personaje.x : personaje.x++ }
   if (personaje.dir === 9) { personaje.y === 0 ? personaje.y : personaje.y-- }
 
 }
@@ -192,8 +193,8 @@ function movBox(ind) {
   }
   
   if (personaje.dir === 3) {
-    caja[ind].y === 9 ? caja[ind].y : caja[ind].y++
-    if (caja[ind].y === 9 && personaje.y === 9) { personaje.y-- 
+    caja[ind].y === mapaRow -1 ? caja[ind].y : caja[ind].y++
+    if (caja[ind].y === mapaRow -1 && personaje.y === mapaRow -1) { personaje.y-- 
     soundBox = false
     }
     for (let i = 0; i < caja.length; i++) {
@@ -214,8 +215,8 @@ function movBox(ind) {
   }
   
   if (personaje.dir === 6) {
-    caja[ind].x === 9 ? caja[ind].x : caja[ind].x++
-    if (caja[ind].x === 9 && personaje.x === 9) { 
+    caja[ind].x === mapaColm -1 ? caja[ind].x : caja[ind].x++
+    if (caja[ind].x === mapaColm -1 && personaje.x === mapaColm -1) { 
       personaje.x-- 
       soundBox = false
     }
@@ -281,19 +282,26 @@ function win() {
   }
 
   //si es asi avisamos por mensaje de que ha ganado!
-  if (count === gema.length) { setTimeout(function () { alert("YOU WIN!!") }, 300) }
+  if (count === gema.length) { setTimeout(function () { 
+    document.getElementById('win').style.display="block";
+    const nextLevel = document.getElementsByClassName('nextLevel')[0]
+    nextLevel.onclick = selectLevel
+  }, 300) }
 
 }
 
 function selectLevel () {
-
+  document.getElementById('background').style.display="none"
+  document.getElementById('container').innerHTML = " "
+  document.getElementById('win').style.display="none"
+ 
   currentLevel = levels.level1
 
   var elem = document.getElementById("container")
 
   for (let i = 0; i < currentLevel.row; i++) {
+    
     var fila = document.createElement("tr")
-
     fila.classList.add(`row${i}`)
     elem.appendChild(fila)
 
@@ -309,17 +317,21 @@ function selectLevel () {
 }
 
 function principalMenu () {
-
-
+  
+  const button = document.getElementsByClassName('botonStart')[0];
+  button.onclick = selectLevel
 }
 // Se encarga de detectar nivel y limpiar el nivel anterior
 function startLevel() {
+
   var level = currentLevel
   //var que contiene los datos del nivel en el que estamos
   soundGame.play()
   
   //crear  mapa y matriz vacia
   mapa = new Array(level.row).fill(null).map(e => new Array(level.colm).fill(0))
+  mapaRow  = level.row
+  mapaColm = level.colm
 
   //vaciar cajas y gemas de nivel anterior
   caja.length  = 0
@@ -357,6 +369,7 @@ function startLevel() {
 
 
 //funcion iniciadora
+  principalMenu()
   // selectLevel()
 
 //detecta boton que pulsemos en teclado
