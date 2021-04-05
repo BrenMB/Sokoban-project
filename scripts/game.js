@@ -35,8 +35,12 @@ function updateLevel(level) {
 
   //posit personaje en la matriz
   mapa[personaje.x][personaje.y] = 1
-  mapa[tp.x][tp.y] = 5
-  mapa[tp.xtp][tp.ytp] = 5
+  console.log(tp.length)
+    if (Object.keys(tp).length === 0){
+    mapa[tp.x][tp.y] = 5
+    mapa[tp.xtp][tp.ytp] = 5
+  }
+  
   //post caja en la matriz
   for (let i = 0; i < caja.length; i++) {
     mapa[caja[i].x][caja[i].y] = 3
@@ -331,7 +335,7 @@ function selectLevel () {
   document.getElementById('container').innerHTML = " "
   document.getElementById('win').style.display="none"
  
-  currentLevel = levels.level1
+  currentLevel = levels.level3
 
   var elem = document.getElementById("container")
 
