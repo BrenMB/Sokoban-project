@@ -8,10 +8,7 @@ const levels = {
       dir : 6
     },
     tp : {
-      x : null,
-      y : null,
-      xtp : null,
-      ytp : null
+   
     },
     cajas : [{
         x : 3,
@@ -491,12 +488,9 @@ const levels = {
   level3: {
     row : 15,
     colm : 15,
-    tp : {tp : {
-      x : null,
-      y : null,
-      xtp : null,
-      ytp : null
-    },},
+    tp : {
+     
+    },
     personaje : { x : 5, y : 4, dir : 6 },
     cajas : [
        { x : 3, y : 3, dir : 0 },

@@ -2,7 +2,7 @@
 var mapa 
 var mapaRow 
 var mapaColm
-
+var countLevel = 0
 //?? sound
 
 // 0 = vacio
@@ -36,7 +36,7 @@ function updateLevel(level) {
   //posit personaje en la matriz
   mapa[personaje.x][personaje.y] = 1
   console.log(tp.length)
-    if (Object.keys(tp).length === 0){
+    if (Object.keys(tp).length !== 0){
     mapa[tp.x][tp.y] = 5
     mapa[tp.xtp][tp.ytp] = 5
   }
@@ -331,13 +331,17 @@ function win() {
 }
 
 function selectLevel () {
+
+  soundGame.play()
+
+  countLevel++
   document.getElementById('background').style.display="none"
   document.getElementById('container').innerHTML = " "
   document.getElementById('win').style.display="none"
- 
-  currentLevel = levels.level3
-
   var elem = document.getElementById("container")
+ 
+  currentLevel = levels[`level${countLevel}`]
+
 
   for (let i = 0; i < currentLevel.row; i++) {
     
@@ -366,7 +370,6 @@ function startLevel() {
 
   var level = currentLevel
   //var que contiene los datos del nivel en el que estamos
-  soundGame.play()
   
   //crear  mapa y matriz vacia
   mapa = new Array(level.row).fill(null).map(e => new Array(level.colm).fill(0))
@@ -381,6 +384,7 @@ function startLevel() {
   //actualiuza posicion de personaje
   personaje = {...level.personaje}
   tp = {...level.tp}
+
   //actualiuza posicion de cajas
   for (let i = 0; i < level.cajas.length; i++) {
     var obj = {...level.cajas[i]}
@@ -403,9 +407,6 @@ function startLevel() {
     stone.push(obj)
 
   }
- 
-
-
   updateLevel(level)
 }
 
@@ -413,6 +414,7 @@ function startLevel() {
 //funcion iniciadora
   principalMenu()
   // selectLevel()
+
 
 //detecta boton que pulsemos en teclado
 document.addEventListener('keydown', function (e) {
@@ -444,5 +446,21 @@ document.addEventListener('keydown', function (e) {
     personaje.dir = 9
     move()
   }
-  console.log(personaje.x , personaje.y)
+  
 })
+
+function checkVolume () {
+  if (volume.classList.contains('volumeOn') === true) {
+    volume.classList.remove('volumeOn')
+    volume.classList.add('volumeOff')
+    soundGame.pause()
+  } else {
+    volume.classList.remove('volumeOff')
+    volume.classList.add('volumeOn')
+    soundGame.play()
+  }
+  
+}
+
+var volume = document.getElementById('buttonSound')
+volume.onclick = checkVolume

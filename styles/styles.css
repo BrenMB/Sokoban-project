@@ -71,7 +71,7 @@ td{
   background-size: 35px;
 }
 .tp{
-  background-image: url(/assets/images/tp.PNG);
+  background-image: url(../assets/images/telep.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 35px;
@@ -92,7 +92,7 @@ td{
 }
 
 #soundGame {
-  display: none;
+  display: block;
 }
 
 #background {
@@ -100,7 +100,7 @@ td{
   height: 100%;
   background-size: 1000px;
   background-repeat: no-repeat;
-  background-image: url(/assets/images/menu.png);
+  background-image: url(../assets/images/menu.png);
 
 }
 
@@ -109,7 +109,7 @@ td{
   height: 100%;
   background-size: 1000px;
   background-repeat: no-repeat;
-  background-image: url(/assets/images/vikingWin.png);
+  background-image: url(../assets/images/vikingWin.png);
   display: none;
 
 }
@@ -124,11 +124,11 @@ button {
   padding-top: 10px;
   margin-left: 300px;
   font-family: fantasy;
-  background-size: 400px;
+  background-size: 400px; 
   background-position: center;
   background-repeat: no-repeat;
   background-color: transparent;
-  background-image: url(/assets/images/buttonMenu.png);
+  background-image: url(../assets/images/buttonMenu.png);
 }
 
 .nextLevel{
@@ -146,6 +146,23 @@ button {
   margin-top: 40px;
 }
 
+.volumeOn {
+  background-image: url(../assets/images/volumeOn.png);
+  width: 50px;
+  height: 50px;
+  background-size:40px; 
+  margin-left: 0px;
+}
+
+.volumeOff {
+  background-image: url(../assets/images/volumeOff.png);
+  width: 50px;
+  height: 50px;
+  background-size:40px; 
+  margin-left: 0px;
+}
+
 .botonLevels {
   margin-top: 40px;
 }
+
