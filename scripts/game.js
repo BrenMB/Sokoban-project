@@ -10,6 +10,7 @@ var mapaColm
 // 2 = stone
 // 3 = box movb
 // 4 = gema
+// 5 = tp
 
 //audios
 const moveStone = new Audio ()
@@ -25,6 +26,7 @@ var stone = []
 var caja = []
 var gema = []
 var currentLevel = null
+var tp = {}
 
 // esta func posicionara cada elem(persj,block, gema) en la matriz
 //PARAMETRO  LEVELS.(level actual)
@@ -33,7 +35,12 @@ function updateLevel(level) {
 
   //posit personaje en la matriz
   mapa[personaje.x][personaje.y] = 1
-
+  console.log(tp.length)
+    if (Object.keys(tp).length === 0){
+    mapa[tp.x][tp.y] = 5
+    mapa[tp.xtp][tp.ytp] = 5
+  }
+  
   //post caja en la matriz
   for (let i = 0; i < caja.length; i++) {
     mapa[caja[i].x][caja[i].y] = 3
@@ -75,6 +82,7 @@ function printBoard() {
       elem.classList.remove('personajeR')
       elem.classList.remove('personaje')
       elem.classList.remove('personajeL')
+      elem.classList.remove('tp')
 
       //dependiendo del valor de la matriz anadimos diferentes elem(caja,gema..)
       if (mapa[r][c] === 1) {
@@ -111,13 +119,24 @@ function printBoard() {
       if (mapa[r][c] === 0){
         elem.classList.add('floor1')
       }
+      if (mapa[r][c] === 5){
+        if (r === personaje.x && c === personaje.y) {
+          if (personaje.dir === 0) { elem.classList.add('personajeU') }
+          if (personaje.dir === 3) { elem.classList.add('personajeR') }
+          if (personaje.dir === 6) { elem.classList.add('personaje' ) }
+          if (personaje.dir === 9) { elem.classList.add('personajeL') }
+
+        } else { 
+          elem.classList.add('tp') 
+      }
+    }
     })
   })
 }
 
 //actualiza la matriz
 function move() {
-
+  
   //antes de mover personaje y cajas camabiamos sus valores anteriores a 0
   mapa = new Array(mapaRow).fill(null).map(e => new Array(mapaColm).fill(0))
   
@@ -138,6 +157,7 @@ function move() {
     if (personaje.x === caja[i].x && personaje.y === caja[i].y) { movBox(i) }
 
   }
+  
   updateLevel()
   win()
 }
@@ -145,19 +165,29 @@ function move() {
 //mueve el personaje en la matriz
 function movPlayer() {
   // 0 = up, 3 = right, 6 = down, 9 = left
-
+  var tpActivado = false
   //depende de la posicion del personaje se mueve si no esta en borde 
   if (personaje.dir === 0) { personaje.x === 0 ? personaje.x : personaje.x-- }
   if (personaje.dir === 3) { personaje.y === mapaColm -1 ? personaje.y : personaje.y++ }
   if (personaje.dir === 6) { personaje.x === mapaRow  -1 ? personaje.x : personaje.x++ }
   if (personaje.dir === 9) { personaje.y === 0 ? personaje.y : personaje.y-- }
-
+  if (personaje.x === tp.x && personaje.y === tp.y && tpActivado === false){
+    personaje.x = tp.xtp
+    personaje.y = tp.ytp
+    tpActivado = true
+  }
+  if (personaje.x === tp.xtp && personaje.y === tp.ytp && tpActivado === false){
+    personaje.x = tp.x
+    personaje.y = tp.y
+    tpActivado = true
+  }
 }
 
 //se ejecuta cuando el perosnaje esta sobre una caja y le pasamos el parametro de la misma caja
 function movBox(ind) {
 
   var soundBox = true;
+  var tpActivado = false;
 
   // preguntamos la direccion del personaje para mover la caja
   if (personaje.dir === 0) {
@@ -268,6 +298,16 @@ function movBox(ind) {
       boxOnGema.play()
     }
   }
+  if (caja[ind].x === tp.x && caja[ind].y === tp.y && tpActivado === false){
+    caja[ind].x = tp.xtp
+    caja[ind].y = tp.ytp
+    tpActivado = true
+  }
+  if (caja[ind].x === tp.xtp && caja[ind].y === tp.ytp && tpActivado === false){
+    caja[ind].x = tp.x
+    caja[ind].y = tp.y
+    tpActivado = true
+  }
 }
 
 //pregunta si todas las gemas tienen una caja encima
@@ -295,7 +335,7 @@ function selectLevel () {
   document.getElementById('container').innerHTML = " "
   document.getElementById('win').style.display="none"
  
-  currentLevel = levels.level1
+  currentLevel = levels.level3
 
   var elem = document.getElementById("container")
 
@@ -337,10 +377,10 @@ function startLevel() {
   caja.length  = 0
   gema.length  = 0
   stone.length = 0
-
+  
   //actualiuza posicion de personaje
   personaje = {...level.personaje}
-  
+  tp = {...level.tp}
   //actualiuza posicion de cajas
   for (let i = 0; i < level.cajas.length; i++) {
     var obj = {...level.cajas[i]}
@@ -363,6 +403,8 @@ function startLevel() {
     stone.push(obj)
 
   }
+ 
+
 
   updateLevel(level)
 }
@@ -402,5 +444,5 @@ document.addEventListener('keydown', function (e) {
     personaje.dir = 9
     move()
   }
-
+  console.log(personaje.x , personaje.y)
 })

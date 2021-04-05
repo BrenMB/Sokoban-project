@@ -5,8 +5,8 @@ body {
 
 #container{
   position: relative;
-  width: 1000px;
-  height:1000px;
+  /*width: 1000px;
+  height:1000px;*/
 }
 
 table{
@@ -18,59 +18,64 @@ table{
 }
 
 td{
-  width: 5px;
-  height: 5px;
+  width: 40px;
+  height: 40px;
 }
 
 .personaje {
   background-image: url(/assets/images/player.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 70px;
+  background-size: 40px;
 }
 
 .personajeR{
   background-image: url(/assets/images/playerR.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 45px;
+  background-size: 25px;
 }
 
 .personajeL{
   background-image: url(/assets/images/playerL.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 45px;
+  background-size: 25px;
 }
 
 .personajeU{
   background-image: url(/assets/images/playerUp.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 70px;
+  background-size: 40px;
 }
 
 .stone {
   background-image: url(/assets/images/stone.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 90px;
+  background-size: 40px;
 }
 
 .caja{
   background-image: url(/assets/images/boxM.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 70px;
+  background-size: 33px;
 }
 
 .gema{
   background-image: url(/assets/images/gema-1.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 50px;
+  background-size: 35px;
 }
-
+.tp{
+  background-image: url(/assets/images/tp.PNG);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 35px;
+}
 .floor1{
   background-image: url(/assets/images/Floor.png);
   background-position: center;
