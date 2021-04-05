@@ -71,7 +71,7 @@ td{
   background-size: 35px;
 }
 .tp{
-  background-image: url(../assets/images/tp.png);
+  background-image: url(/assets/images/tp.PNG);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 35px;

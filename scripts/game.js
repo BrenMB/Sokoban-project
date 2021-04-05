@@ -335,7 +335,7 @@ function selectLevel () {
   document.getElementById('container').innerHTML = " "
   document.getElementById('win').style.display="none"
  
-  currentLevel = levels.level2
+  currentLevel = levels.level3
 
   var elem = document.getElementById("container")
 
