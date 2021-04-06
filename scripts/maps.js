@@ -1,6 +1,7 @@
 const levels = {
 
   level1: {
+    historia : 'Bien hecho! Solaire logro mover la estatua hasta la gema y una puerta se abrio frente a el. Al pasarla se cierra, contempla el mismo ambiente con nuevos elementos. Solaire siente un aura extraña en las columnas brillantes. Ayuda a Solaire a descubrir que son y que logre escapar de esta zona!',
     row: 10,
     colm: 10,
     personaje: { x: 4, y: 2, dir: 6 },
@@ -19,24 +20,61 @@ const levels = {
   },
   
   level2: {
+    historia : "Ooh wauu!! Solaire ha logrado traspasar las columnas. Se preguntara si las estatuas podran hacer lo mismo?",
     row: 10,
     colm: 10,
-    personaje: { x: 4, y: 2, dir: 6 },
+    personaje: { x: 5, y: 2, dir: 6 },
     tp: { x: 0, y: 3, xtp: 9, ytp: 7 },
     cajas: [
-      { x: 5, y: 7, dir: 0 },
+      { x: 2, y: 7, dir: 0 },
     ],
   
     stone: [
-      { x: 8, y: 3 },
+      { x: 4, y: 0 },
+      { x: 4, y: 1 },
+      { x: 4, y: 2 },
+      { x: 4, y: 3 },
+      { x: 4, y: 4 },
+      { x: 4, y: 5 },
+      { x: 4, y: 6 },
+      { x: 4, y: 7 },
+      { x: 4, y: 8 },
+      { x: 4, y: 9 }
     ],
   
     gemas: [
       { x: 1, y: 8 },
     ],
   },
-  
   level3: {
+    historia : "Las columnas pareciera que le van a ser muy util para lograr escapar... Ahora Solaire se enfrenta a un desafio mucho mayor, como podra escapar?",
+    row: 10,
+    colm: 10,
+    personaje: { x: 5, y: 2, dir: 6 },
+    tp: { x: 0, y: 3, xtp: 9, ytp: 7 },
+    cajas: [
+      { x: 7, y: 7, dir: 0 },
+    ],
+  
+    stone: [
+      { x: 4, y: 0 },
+      { x: 4, y: 1 },
+      { x: 4, y: 2 },
+      { x: 4, y: 3 },
+      { x: 4, y: 4 },
+      { x: 4, y: 5 },
+      { x: 4, y: 6 },
+      { x: 4, y: 7 },
+      { x: 4, y: 8 },
+      { x: 4, y: 9 }
+    ],
+  
+    gemas: [
+      { x: 1, y: 8 },
+    ],
+  },
+  level4: {
+    historia : 'Solaire se ha confiado y ha querido salir sin tu ayuda... lleva tres dias sin poder escapar de esta nueva sala. Crees poder ayudarlo nuevamente?',
     row: 10,
     colm: 10,
     personaje: { x: 5, y: 4, dir: 6 },

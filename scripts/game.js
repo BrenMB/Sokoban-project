@@ -20,6 +20,9 @@ const boxOnGema = new Audio ()
 boxOnGema.setAttribute('src', 'assets/sound/gemaSound.wav')
 const soundGame = new Audio ()
 soundGame.setAttribute('src', 'assets/sound/soundGame.mp3')
+const winSound = new Audio ()
+winSound.setAttribute('src', 'assets/sound/WinSound.mp3')
+
 
 //elementos
 var personaje = {}
@@ -324,10 +327,17 @@ function win() {
 
   //si es asi avisamos por mensaje de que ha ganado!
   if (count === gema.length) { setTimeout(function () { 
-   
+    if (generalVolume === true){
+      soundGame.pause()
+      winSound.play()
+    }
     document.getElementById("container").style.display = "none";
+    document.getElementById('history').innerHTML = currentLevel.historia
+    document.getElementById('history-position').style.display="block"
     document.getElementById('win').style.display="block";
+
     const nextLevel = document.getElementsByClassName('nextLevel')[0]
+
     nextLevel.onclick = selectLevel
   }, 300) }
 
@@ -338,14 +348,17 @@ function selectLevel () {
     soundGame.play()
   }
     
-  countLevel++
+  document.getElementById('history-position').style.display="none"
   document.getElementById('background').style.display="none"
   document.getElementById('win').style.display="none"
   document.getElementById('container').innerHTML = " "
+  document.getElementById('buttonDown').style.display="inline-block"
+  document.getElementById('buttonSound').style.display="inline-block"
+  document.getElementById('buttonUp').style.display="inline-block"
+
   var elem = document.getElementById("container")
-  
+  countLevel++
   currentLevel = levels[`level${countLevel}`]
-  
   
   for (let i = 0; i < currentLevel.row; i++) {
     
@@ -361,7 +374,9 @@ function selectLevel () {
       
     }
   }
+
   document.getElementById("container").style.display = "inline-block";
+
   if (countLevel === 4 ) {
     document.getElementById("container").style.marginLeft = "0px";
 
@@ -370,9 +385,19 @@ function selectLevel () {
 }
 
 function principalMenu () {
-  
+
   const button = document.getElementsByClassName('botonStart')[0];
-  button.onclick = selectLevel
+  button.onclick = history
+}
+
+function history () {
+
+  document.getElementById('background').style.display="none"
+  document.getElementById('win').style.display="block"
+  document.getElementById('history-position').style.display="block"
+
+  let nextLevel = document.getElementsByClassName('nextLevel')[0]
+  nextLevel.onclick = selectLevel
 }
 // Se encarga de detectar nivel y limpiar el nivel anterior
 function startLevel() {
@@ -474,24 +499,39 @@ function checkVolume () {
 }
 
 function soundDown () {
-  if (countVolume>0) {
-    countVolume -= 0.1;
-
+  if (countVolume > 0 ) {
+    countVolume = parseFloat(countVolume) - 0.1;
     countVolume = countVolume.toFixed(1);
-      }
+
+  }
+
   soundGame.volume = countVolume;
-  console.log(countVolume)
-  if (countVolume == 0){
-    console.log("hi")
+  moveStone.volume = countVolume;
+  boxOnGema.volume = countVolume;
+  winSound.volume  = countVolume;
+
+  if (countVolume === '0.0'){
     volume.classList.remove('volumeOn')
     volume.classList.add('volumeOff')
   }
 }
 
 function soundUp (){
-  countVolume = countVolume + 0.1;
-  //countVolume = countVolume.toFixed(1)
-  soundGame.volume = countVolume; 
+  if (countVolume < 1 ) {
+    countVolume = parseFloat(countVolume) + 0.1;
+    countVolume = countVolume.toFixed(1);
+  }
+
+  soundGame.volume = countVolume;
+  moveStone.volume = countVolume;
+  boxOnGema.volume = countVolume;
+  winSound.volume  = countVolume;
+  
+  if (countVolume === '0.1') {
+    volume.classList.remove('volumeOff')
+    volume.classList.add('volumeOn')
+  }
+
 }
 
 var volume = document.getElementById('buttonSound')

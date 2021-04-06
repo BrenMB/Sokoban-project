@@ -1,16 +1,15 @@
 body {
-  width: 100%;
-  height: 100%;
   background-image: url(../assets/images/background-image-1.jpg);
+  background-size: 100%;
   background-repeat: no-repeat;
-  position: relative;
+  background-image: rgba(0, 0, 0, 0.5);
 }
 
 #container{
   position: relative;
-  margin-left: 35%;
+  margin-left: 20%;
   display: none;
-  margin-top: 50px;
+  margin-top: 220px;
   
   /*width: 1000px;
   height:1000px;*/
@@ -27,63 +26,63 @@ table{
 }
 
 td{
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
 }
 
 .personaje {
   background-image: url(../assets/images/player.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 40px;
+  background-size: 55px;
 }
 
 .personajeR{
   background-image: url(../assets/images/playerR.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 25px;
+  background-size: 35px;
 }
 
 .personajeL{
   background-image: url(../assets/images/playerL.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 25px;
+  background-size: 35px;
 }
 
 .personajeU{
   background-image: url(../assets/images/playerUp.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 40px;
+  background-size: 55px;
 }
 
 .stone {
   background-image: url(../assets/images/stone.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 40px;
+  background-size: 60px;
 }
 
 .caja{
   background-image: url(../assets/images/boxM.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 33px;
+  background-size: 45px;
 }
 
 .gema{
   background-image: url(../assets/images/gema-1.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 35px;
+  background-size: 25px;
 }
 .tp{
   background-image: url(../assets/images/telep.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 35px;
+  background-size: 55px;
 }
 .floor1{
   background-image: url(../assets/images/Floor.png);
@@ -111,9 +110,6 @@ td{
   height: 800px;
   margin: auto;
 
-
-
-
 }
 
 #win {
@@ -121,10 +117,6 @@ td{
   width: 800px;
   height: 800px;
   margin: auto;
-  background-position: center;
-  background-size: 800px;
-  background-repeat: no-repeat;
-  background-image: url(../assets/images/vikingWin.png);
   display: none;
 }
 
@@ -148,14 +140,20 @@ button {
 .nextLevel{
   margin-top: 100px;
   margin-left: 200px;
-  
 
 }
+
+#history-position {
+width: 1000px;
+margin-top: 300px;
+margin-left:110px;
+display: none;
+}
+
 
 .botonStart {
   margin-top: 350px;
   text-align: center;
-
  
 }
 
@@ -172,7 +170,7 @@ button {
 }
 
 .volumeOn {
-  display: inline-block;
+  display: none;
   background-image: url(../assets/images/volumeOn.png);
   width: 50px;
   height: 50px;
@@ -180,11 +178,10 @@ button {
   float: left;
   margin-left: 0px;
   
-
 }
 
 .volumeOff {
-  display: inline-block;
+  display: none;
   background-image: url(../assets/images/volumeOff.png);
   width: 50px;
   height: 50px;
@@ -195,7 +192,7 @@ button {
  }
 
 #buttonUp {
-  display: inline-block;
+  display: none;
   float: left;
   background-image: url(../assets/images/picVolumeUp.png);
   width: 50px;
@@ -205,7 +202,7 @@ button {
 }
 
 #buttonDown {
-  display: inline-block;
+  display: none;
   background-image: url(../assets/images/picVolumeDown.png);
   width: 50px;
   height: 50px;
