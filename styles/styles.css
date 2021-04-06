@@ -1,20 +1,29 @@
 body {
-  width: 7000px;
-  height: 7000px;
+  width: 100%;
+  height: 100%;
+  background-image: url(../assets/images/background-image-1.jpg);
+  background-repeat: no-repeat;
+  position: relative;
 }
 
 #container{
   position: relative;
+  margin-left: 35%;
+  display: none;
+  margin-top: 50px;
+  
   /*width: 1000px;
   height:1000px;*/
+  
 }
 
 table{
-  position:absolute;
+
   border: 1px solid black;
   background-image: url(../assets/images/Floor.png);
   background-position: center;
   background-size: 25px;
+  border: solid black;
 }
 
 td{
@@ -96,22 +105,27 @@ td{
 }
 
 #background {
-  width: 100%;
-  height: 100%;
-  background-size: 1000px;
-  background-repeat: no-repeat;
-  background-image: url(../assets/images/menu.png);
+  position: relative;
+  background-size: 800px;
+  width: 800px;
+  height: 800px;
+  margin: auto;
+
+
+
 
 }
 
 #win {
-  width: 100%;
-  height: 100%;
-  background-size: 1000px;
+  position: relative;
+  width: 800px;
+  height: 800px;
+  margin: auto;
+  background-position: center;
+  background-size: 800px;
   background-repeat: no-repeat;
   background-image: url(../assets/images/vikingWin.png);
   display: none;
-
 }
 
 
@@ -122,7 +136,7 @@ button {
   font-size: 40px;
   font-weight: 900;
   padding-top: 10px;
-  margin-left: 300px;
+  margin-left: 25%;
   font-family: fantasy;
   background-size: 400px; 
   background-position: center;
@@ -133,36 +147,76 @@ button {
 
 .nextLevel{
   margin-top: 100px;
-  margin-left: 265px;
+  margin-left: 200px;
+  
 
 }
 
 .botonStart {
-  margin-top: 400px;
+  margin-top: 350px;
   text-align: center;
+
+ 
 }
 
 .botonOptions {
-  margin-top: 40px;
+  margin-top: 40px; 
+
+}
+
+
+#soundButtons {
+  position: relative;
+  margin-left: 43%;
+
 }
 
 .volumeOn {
+  display: inline-block;
   background-image: url(../assets/images/volumeOn.png);
   width: 50px;
   height: 50px;
   background-size:40px; 
+  float: left;
   margin-left: 0px;
+  
+
 }
 
 .volumeOff {
+  display: inline-block;
   background-image: url(../assets/images/volumeOff.png);
   width: 50px;
   height: 50px;
   background-size:40px; 
+  float: left;
   margin-left: 0px;
+ 
+ }
+
+#buttonUp {
+  display: inline-block;
+  float: left;
+  background-image: url(../assets/images/picVolumeUp.png);
+  width: 50px;
+  height: 50px;
+  background-size:20px; 
+  margin-left: 0px;
+}
+
+#buttonDown {
+  display: inline-block;
+  background-image: url(../assets/images/picVolumeDown.png);
+  width: 50px;
+  height: 50px;
+  background-size:20px; 
+  float: left;
+  margin-left: 0px;
+  
 }
 
 .botonLevels {
   margin-top: 40px;
+
 }
 

@@ -4,7 +4,8 @@ var mapaRow
 var mapaColm
 var countLevel = 0
 //?? sound
-
+var countVolume = 1;
+var generalVolume = true;
 // 0 = vacio
 // 1 = personaje
 // 2 = stone
@@ -290,11 +291,11 @@ function movBox(ind) {
       soundBox = false;
     }
   }
-  if (soundBox === true ) {
+  if (soundBox === true && generalVolume === true) {
     moveStone.play()
   }
   for (let i  = 0 ; i < gema.length; i++) {
-    if (gema[i].x === caja[ind].x && gema[i].y === caja[ind].y) {
+    if (gema[i].x === caja[ind].x && gema[i].y === caja[ind].y && generalVolume === true) {
       boxOnGema.play()
     }
   }
@@ -323,6 +324,8 @@ function win() {
 
   //si es asi avisamos por mensaje de que ha ganado!
   if (count === gema.length) { setTimeout(function () { 
+   
+    document.getElementById("container").style.display = "none";
     document.getElementById('win').style.display="block";
     const nextLevel = document.getElementsByClassName('nextLevel')[0]
     nextLevel.onclick = selectLevel
@@ -331,31 +334,37 @@ function win() {
 }
 
 function selectLevel () {
-
-  soundGame.play()
-
+  if (generalVolume === true){
+    soundGame.play()
+  }
+    
   countLevel++
   document.getElementById('background').style.display="none"
-  document.getElementById('container').innerHTML = " "
   document.getElementById('win').style.display="none"
+  document.getElementById('container').innerHTML = " "
   var elem = document.getElementById("container")
- 
+  
   currentLevel = levels[`level${countLevel}`]
-
-
+  
+  
   for (let i = 0; i < currentLevel.row; i++) {
     
     var fila = document.createElement("tr")
     fila.classList.add(`row${i}`)
     elem.appendChild(fila)
-
+    
     for (let j = 0; j < currentLevel.colm; j++) {
-
+      
       var columna = document.createElement("td")
       columna.classList.add(`colm${j}`)
       fila.appendChild(columna)
-  
+      
     }
+  }
+  document.getElementById("container").style.display = "inline-block";
+  if (countLevel === 4 ) {
+    document.getElementById("container").style.marginLeft = "0px";
+
   }
   startLevel()
 }
@@ -454,13 +463,43 @@ function checkVolume () {
     volume.classList.remove('volumeOn')
     volume.classList.add('volumeOff')
     soundGame.pause()
+    generalVolume = false;
   } else {
     volume.classList.remove('volumeOff')
     volume.classList.add('volumeOn')
     soundGame.play()
+    generalVolume = true;
   }
   
 }
 
+function soundDown () {
+  if (countVolume>0) {
+    countVolume -= 0.1;
+
+    countVolume = countVolume.toFixed(1);
+      }
+  soundGame.volume = countVolume;
+  console.log(countVolume)
+  if (countVolume == 0){
+    console.log("hi")
+    volume.classList.remove('volumeOn')
+    volume.classList.add('volumeOff')
+  }
+}
+
+function soundUp (){
+  countVolume = countVolume + 0.1;
+  //countVolume = countVolume.toFixed(1)
+  soundGame.volume = countVolume; 
+}
+
 var volume = document.getElementById('buttonSound')
 volume.onclick = checkVolume
+
+var volumeUp = document.getElementById('buttonUp')
+volumeUp.onclick = soundUp
+
+var volumeDown = document.getElementById('buttonDown')
+volumeDown.onclick = soundDown
+
