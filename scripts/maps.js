@@ -260,6 +260,7 @@ const levels = {
     },*/
 
     level5: {
+      historia : 'Lo lograste....!!! Gracias a tu ayuda Solaire a podido escapar del castillo.',
       row : 10,
       colm : 20,
       personaje : {

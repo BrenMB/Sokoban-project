@@ -335,13 +335,17 @@ function win() {
     document.getElementById('history').innerHTML = currentLevel.historia
     document.getElementById('history-position').style.display="block"
     document.getElementById('win').style.display="block";
-
+    if (countLevel === 5 ) {
+      
+      document.getElementsByTagName("body")[0].style.backgroundImage = "url('../assets/images/winner.jpg')"
+    }
     const nextLevel = document.getElementsByClassName('nextLevel')[0]
 
     nextLevel.onclick = selectLevel
   }, 300) }
 
 }
+
 
 function selectLevel () {
   if (generalVolume === true){
@@ -533,6 +537,17 @@ function soundUp (){
   }
 
 }
+var engranajeStatus = true
+
+function volumeOP () {
+  if (engranajeStatus === true){
+    document.getElementById('options').style.display = "inline-block"
+  }else {
+    document.getElementById('options').style.display = "none"
+
+  }
+  engranajeStatus = !engranajeStatus
+}
 
 var volume = document.getElementById('buttonSound')
 volume.onclick = checkVolume
@@ -543,3 +558,5 @@ volumeUp.onclick = soundUp
 var volumeDown = document.getElementById('buttonDown')
 volumeDown.onclick = soundDown
 
+var options = document.getElementById('engranaje')
+options.onclick = volumeOP

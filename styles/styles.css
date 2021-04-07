@@ -6,11 +6,10 @@ body {
 }
 
 #container{
-  position: relative;
   margin-left: 20%;
   display: none;
-  margin-top: 20px;
-  
+  margin-top: 150px;
+  position: absolute;
   /*width: 1000px;
   height:1000px;*/
   
@@ -26,57 +25,57 @@ table{
 }
 
 td{
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 }
 
 .personaje {
   background-image: url(../assets/images/player.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 55px;
+  background-size: 45px;
 }
 
 .personajeR{
   background-image: url(../assets/images/playerR.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 35px;
+  background-size: 28px;
 }
 
 .personajeL{
   background-image: url(../assets/images/playerL.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 35px;
+  background-size: 28px;
 }
 
 .personajeU{
   background-image: url(../assets/images/playerUp.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 55px;
+  background-size: 45px;
 }
 
 .stone {
   background-image: url(../assets/images/stone.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 60px;
+  background-size: 50px;
 }
 
 .caja{
   background-image: url(../assets/images/boxM.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 45px;
+  background-size: 35px;
 }
 
 .gema{
   background-image: url(../assets/images/gema-1.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 25px;
+  background-size: 15px;
 }
 .tp{
   background-image: url(../assets/images/telep.png);
@@ -144,10 +143,10 @@ button {
 }
 
 #history-position {
-width: 1000px;
-margin-top: 300px;
-margin-left:110px;
-display: none;
+  width: 1000px;
+  margin-top: 300px;
+  margin-left:110px;
+  display: none;
 }
 
 
@@ -165,7 +164,7 @@ display: none;
 
 
 #soundButtons {
-  position: relative;
+  position: absolute;
   margin-left: 43%;
 
 }
@@ -176,8 +175,10 @@ display: none;
   width: 50px;
   height: 50px;
   background-size:40px; 
-  float: left;
-  margin-left: 0px;
+  /* float: left; */
+  margin-left: 60px;
+  margin-top: 40px;
+  
   
 }
 
@@ -187,35 +188,42 @@ display: none;
   width: 50px;
   height: 50px;
   background-size:40px; 
-  float: left;
-  margin-left: 0px;
+  /* float: left; */
+  margin-left: 60px;
+  margin-top: 40px;
+  filter: opacity(0.7);
  
  }
 
 #buttonUp {
   display: none;
-  float: left;
+  /* float: left; */
   background-image: url(../assets/images/picVolumeUp.png);
   width: 50px;
   height: 50px;
   background-size:20px; 
-  margin-left: 0px;
+  margin-left: 60px;
+  margin-top: 40px;
+  filter: opacity(0.7);
 }
 
 #buttonDown {
+  filter: opacity(0.7);
   display: none;
   background-image: url(../assets/images/picVolumeDown.png);
   width: 50px;
   height: 50px;
   background-size:20px; 
-  float: left;
-  margin-left: 0px;
+  /* float: left; */
+  margin-left: 60px;
+  margin-top: 40px;
   
 }
 
 .botonLevels {
   margin-top: 40px;
   display: none;
+
 
 }
 
@@ -228,3 +236,53 @@ display: none;
   background-position: center;
 }
 
+#options {
+  background-image: url(../assets/images/gui.png);
+  width: 300px;
+  height: 300px;
+  display: none;
+  position: relative;
+  filter: opacity(0.7);
+  margin-left: 420px;
+  margin-top: 260px;
+  background-size: 300px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10%;
+}
+
+#engranaje {
+  background-image: url(../assets/images/engranaje.png);
+  border-radius: 10% ;
+  border: solid rgba(255, 208, 0, 0.856);
+  width: 55px;
+  height: 55px;
+  background-size: 50px ;
+  margin-top:50px ;
+  margin-left: 50px;
+  position: absolute;
+}
+#vUp {
+  filter: opacity(0.7);
+  font-size: 25px;
+  position: absolute;
+  margin-top: 47px;
+  margin-left: 60px;
+}
+
+#vDwn {
+  filter: opacity(0.7);
+  font-size: 25px;
+  position: absolute;
+  margin-top: 140px;
+  margin-left: 35px;
+
+}
+#mute {
+  filter: opacity(0.7);
+  font-size: 25px;
+  position: absolute;
+  margin-top: 235px;
+  margin-left: 120px;
+
+}
