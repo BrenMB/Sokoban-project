@@ -152,14 +152,15 @@ display: none;
 
 
 .botonStart {
-  margin-top: 350px;
+ 
   text-align: center;
+  margin-left: 80px;
  
 }
 
 .botonOptions {
   margin-top: 40px; 
-
+  display: none;
 }
 
 
@@ -214,6 +215,16 @@ display: none;
 
 .botonLevels {
   margin-top: 40px;
+  display: none;
 
+}
+
+#logoSolaireBan {
+  background-image: url(../assets/images/logo_letras_grandes.png);
+  width: 600px;
+  height: 600px;
+  background-size: 800px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
