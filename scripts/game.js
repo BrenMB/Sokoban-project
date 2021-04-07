@@ -227,8 +227,8 @@ function movBox(ind) {
   }
   
   if (personaje.dir === 3) {
-    caja[ind].y === mapaRow -1 ? caja[ind].y : caja[ind].y++
-    if (caja[ind].y === mapaRow -1 && personaje.y === mapaRow -1) { personaje.y-- 
+    caja[ind].y === mapaColm -1 ? caja[ind].y : caja[ind].y++
+    if (caja[ind].y === mapaColm -1 && personaje.y === mapaColm -1) { personaje.y-- 
     soundBox = false
     }
     for (let i = 0; i < caja.length; i++) {
@@ -249,8 +249,8 @@ function movBox(ind) {
   }
   
   if (personaje.dir === 6) {
-    caja[ind].x === mapaColm -1 ? caja[ind].x : caja[ind].x++
-    if (caja[ind].x === mapaColm -1 && personaje.x === mapaColm -1) { 
+    caja[ind].x === mapaRow -1 ? caja[ind].x : caja[ind].x++
+    if (caja[ind].x === mapaRow -1 && personaje.x === mapaRow -1) { 
       personaje.x-- 
       soundBox = false
     }
@@ -377,7 +377,7 @@ function selectLevel () {
 
   document.getElementById("container").style.display = "inline-block";
 
-  if (countLevel === 4 ) {
+  if (countLevel === 5 ) {
     document.getElementById("container").style.marginLeft = "0px";
 
   }
