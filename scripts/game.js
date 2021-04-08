@@ -17,6 +17,8 @@ const soundGame = new Audio ()
 soundGame.setAttribute('src', 'assets/sound/soundGame.mp3')
 const winSound = new Audio ()
 winSound.setAttribute('src' , 'assets/sound/WinSound.mp3')
+const clickSound = new Audio ()
+clickSound.setAttribute('src' , 'assets/sound/clickSound.wav')
 
 // 0 = vacio
 // 1 = personaje
@@ -42,7 +44,7 @@ function principalMenu () {
 }
 
 function history () {
-
+  clickSound.play()
   document.getElementById('background').style.display="none"
   document.getElementById('win').style.display="block"
   document.getElementById('history-position').style.display="block"
@@ -53,7 +55,7 @@ function history () {
 
 
 function selectLevel () {
-
+  clickSound.play()
   if (generalVolume === true){
     soundGame.play()
   }
@@ -61,6 +63,8 @@ function selectLevel () {
   document.getElementById('buttonSound').style.display="inline-block"
   document.getElementById('buttonDown').style.display="inline-block"
   document.getElementById('buttonUp').style.display="inline-block"
+  document.getElementById('restart').style.display="inline-block"
+  document.getElementById('engranaje').style.display="inline-block"
   document.getElementById('history-position').style.display="none"
   document.getElementById('background').style.display="none"
   document.getElementById('container').innerHTML = " "
@@ -90,7 +94,7 @@ function selectLevel () {
   document.getElementById("container").style.display = "inline-block";
 
   if (countLevel === 5 ) {
-    document.getElementById("container").style.marginLeft = "0px";
+    document.getElementById("container").style.marginLeft = "70px";
 
   }
   startLevel()
@@ -99,7 +103,7 @@ function selectLevel () {
 
 // Se encarga de detectar nivel y limpiar el nivel anterior
 function startLevel() {
-
+  clickSound.play()
   var level = currentLevel
   //var que contiene los datos del nivel en el que estamos
   
@@ -442,6 +446,8 @@ function win() {
       winSound.play()
     }
     document.getElementById("container").style.display = "none";
+    document.getElementById('engranaje').style.display="none"
+    document.getElementById('restart').style.display="none"
     document.getElementById('history').innerHTML = currentLevel.historia
     document.getElementById('history-position').style.display="block"
     document.getElementById('win').style.display="block";
@@ -493,6 +499,7 @@ document.addEventListener('keydown', function (e) {
 })
 
 function checkVolume () {
+  clickSound.play()
   if (volume.classList.contains('volumeOn') === true) {
     volume.classList.remove('volumeOn')
     volume.classList.add('volumeOff')
@@ -507,6 +514,7 @@ function checkVolume () {
 }
 
 function soundDown () {
+  clickSound.play()
   if (countVolume > 0 ) {
     countVolume = parseFloat(countVolume) - 0.1;
     countVolume = countVolume.toFixed(1);
@@ -524,6 +532,7 @@ function soundDown () {
 }
 
 function soundUp () {
+  clickSound.play()
   if (countVolume < 1 ) {
     countVolume = parseFloat(countVolume) + 0.1;
     countVolume = countVolume.toFixed(1);
@@ -543,6 +552,7 @@ function soundUp () {
 var engranajeStatus = true
 
 function volumeOP () {
+  clickSound.play()
   if (engranajeStatus === true) {
     document.getElementById('options').style.display = "inline-block"
   }else {
@@ -562,3 +572,6 @@ volumeUp.onclick = soundUp
 
 var options = document.getElementById('engranaje')
 options.onclick = volumeOP
+
+var restart = document.getElementById('restart')
+restart.onclick = startLevel
