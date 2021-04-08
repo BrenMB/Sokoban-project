@@ -153,7 +153,6 @@ function updateLevel (level) {
 
   //posit personaje en la matriz
   mapa[personaje.x][personaje.y] = 1
-  console.log(tp.length)
     if (Object.keys(tp).length !== 0){
     mapa[tp.x][tp.y] = 5
     mapa[tp.xtp][tp.ytp] = 5
@@ -328,6 +327,7 @@ function movBox(ind) {
         if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y) {
           caja[ind].x++
           personaje.x++
+          soundBox = false;
         }
       }
     }
@@ -350,6 +350,7 @@ function movBox(ind) {
         if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y) {
           caja[ind].y--
           personaje.y--
+          soundBox = false;
         }
       }
     }
@@ -373,6 +374,7 @@ function movBox(ind) {
         if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y) {
           caja[ind].x--
           personaje.x--
+          soundBox = false;
         }
       }
     }
@@ -396,6 +398,7 @@ function movBox(ind) {
         if (caja[ind].x === caja[i].x && caja[ind].y === caja[i].y) {
           caja[ind].y++
           personaje.y++
+          soundBox = false;
         }
       }
     }
@@ -408,7 +411,9 @@ function movBox(ind) {
       soundBox = false;
     }
   }
+  console.log(soundBox)
   if (soundBox === true && generalVolume === true) {
+    console.log("hi")
     moveStone.play()
   }
   for (let i  = 0 ; i < gema.length; i++) {
@@ -575,3 +580,21 @@ options.onclick = volumeOP
 
 var restart = document.getElementById('restart')
 restart.onclick = startLevel
+
+var brillo = 10
+var brilloTime = true
+setInterval(function(){ 
+  if (brillo > 7 && brilloTime === true){
+    brillo--
+    document.getElementById("luzSolar").style.filter = `Opacity(${brillo/10})`
+  }else{
+    brilloTime = false
+  }
+  if (brillo < 10 && brilloTime === false){
+    brillo++
+    document.getElementById("luzSolar").style.filter = `Opacity(${brillo/10})`
+  }else{
+    brilloTime = true
+  }
+  
+}, 250);

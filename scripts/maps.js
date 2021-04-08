@@ -7,11 +7,11 @@ const levels = {
     personaje: { x: 4, y: 2, dir: 6 },
     tp: {},
     cajas: [
-      { x: 5, y: 7, dir: 0 },
+      { x: 5, y: 7, dir: 0 }
     ],
   
     stone: [
-      { x: 9, y: 0 },
+      { x: 9, y: 0 }
     ],
   
     gemas: [
