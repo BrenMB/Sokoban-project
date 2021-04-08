@@ -3,15 +3,10 @@ var mapa
 var mapaRow 
 var mapaColm
 var countLevel = 0
-//?? sound
+
+//sounds
 var countVolume = 1;
 var generalVolume = true;
-// 0 = vacio
-// 1 = personaje
-// 2 = stone
-// 3 = box movb
-// 4 = gema
-// 5 = tp
 
 //audios
 const moveStone = new Audio ()
@@ -21,21 +16,136 @@ boxOnGema.setAttribute('src', 'assets/sound/gemaSound.wav')
 const soundGame = new Audio ()
 soundGame.setAttribute('src', 'assets/sound/soundGame.mp3')
 const winSound = new Audio ()
-winSound.setAttribute('src', 'assets/sound/WinSound.mp3')
+winSound.setAttribute('src' , 'assets/sound/WinSound.mp3')
 
+// 0 = vacio
+// 1 = personaje
+// 2 = stone
+// 3 = box movb
+// 4 = gema
+// 5 = tp
 
 //elementos
+var currentLevel = null
 var personaje = {}
 var stone = []
 var caja = []
 var gema = []
-var currentLevel = null
 var tp = {}
+
+
+
+function principalMenu () {
+
+  const button = document.getElementsByClassName('botonStart')[0];
+  button.onclick = history
+}
+
+function history () {
+
+  document.getElementById('background').style.display="none"
+  document.getElementById('win').style.display="block"
+  document.getElementById('history-position').style.display="block"
+
+  let nextLevel = document.getElementsByClassName('nextLevel')[0]
+  nextLevel.onclick = selectLevel
+}
+
+
+function selectLevel () {
+
+  if (generalVolume === true){
+    soundGame.play()
+  }
+    
+  document.getElementById('buttonSound').style.display="inline-block"
+  document.getElementById('buttonDown').style.display="inline-block"
+  document.getElementById('buttonUp').style.display="inline-block"
+  document.getElementById('history-position').style.display="none"
+  document.getElementById('background').style.display="none"
+  document.getElementById('container').innerHTML = " "
+  document.getElementById('win').style.display="none"
+
+  var elem = document.getElementById("container")
+
+  countLevel++
+
+  currentLevel = levels[`level${countLevel}`]
+  
+  for (let i = 0; i < currentLevel.row; i++) {
+    
+    var fila = document.createElement("tr")
+    fila.classList.add(`row${i}`)
+    elem.appendChild(fila)
+    
+    for (let j = 0; j < currentLevel.colm; j++) {
+      
+      var columna = document.createElement("td")
+      columna.classList.add(`colm${j}`)
+      fila.appendChild(columna)
+      
+    }
+  }
+
+  document.getElementById("container").style.display = "inline-block";
+
+  if (countLevel === 5 ) {
+    document.getElementById("container").style.marginLeft = "0px";
+
+  }
+  startLevel()
+}
+
+
+// Se encarga de detectar nivel y limpiar el nivel anterior
+function startLevel() {
+
+  var level = currentLevel
+  //var que contiene los datos del nivel en el que estamos
+  
+  //crear  mapa y matriz vacia
+  mapa = new Array(level.row).fill(null).map(e => new Array(level.colm).fill(0))
+  mapaRow  = level.row
+  mapaColm = level.colm
+
+  //vaciar cajas y gemas de nivel anterior
+  caja.length  = 0
+  gema.length  = 0
+  stone.length = 0
+  
+  //actualiuza posicion de personaje
+  personaje = {...level.personaje}
+  tp = {...level.tp}
+
+  //actualiuza posicion de cajas
+  for (let i = 0; i < level.cajas.length; i++) {
+    var obj = {...level.cajas[i]}
+    caja.push(obj)
+
+  }
+
+  //actualiuza posicion de gemas
+  for (let i = 0; i < level.gemas.length; i++) {
+
+    const obj = {...level.gemas[i]}
+    gema.push(obj)
+
+  }
+
+  //actualiuza posicion de stone
+  for (let i = 0; i < level.stone.length; i++) {
+
+    var obj = {...level.stone[i]}
+    stone.push(obj)
+
+  }
+  updateLevel(level)
+}
 
 // esta func posicionara cada elem(persj,block, gema) en la matriz
 //PARAMETRO  LEVELS.(level actual)
 
-function updateLevel(level) {
+function updateLevel (level) {
 
   //posit personaje en la matriz
   mapa[personaje.x][personaje.y] = 1
@@ -203,7 +313,7 @@ function movBox(ind) {
     if (caja[ind].x === 0 && personaje.x === 0) { 
       personaje.x++
       soundBox = false
-     }
+    }
 
     //pregunta si la caja que estamos moviendo esta sobre otra caja
     for (let i = 0; i < caja.length; i++) {
@@ -346,112 +456,8 @@ function win() {
 
 }
 
-
-function selectLevel () {
-  if (generalVolume === true){
-    soundGame.play()
-  }
-    
-  document.getElementById('history-position').style.display="none"
-  document.getElementById('background').style.display="none"
-  document.getElementById('win').style.display="none"
-  document.getElementById('container').innerHTML = " "
-  document.getElementById('buttonDown').style.display="inline-block"
-  document.getElementById('buttonSound').style.display="inline-block"
-  document.getElementById('buttonUp').style.display="inline-block"
-
-  var elem = document.getElementById("container")
-  countLevel++
-  currentLevel = levels[`level${countLevel}`]
-  
-  for (let i = 0; i < currentLevel.row; i++) {
-    
-    var fila = document.createElement("tr")
-    fila.classList.add(`row${i}`)
-    elem.appendChild(fila)
-    
-    for (let j = 0; j < currentLevel.colm; j++) {
-      
-      var columna = document.createElement("td")
-      columna.classList.add(`colm${j}`)
-      fila.appendChild(columna)
-      
-    }
-  }
-
-  document.getElementById("container").style.display = "inline-block";
-
-  if (countLevel === 5 ) {
-    document.getElementById("container").style.marginLeft = "0px";
-
-  }
-  startLevel()
-}
-
-function principalMenu () {
-
-  const button = document.getElementsByClassName('botonStart')[0];
-  button.onclick = history
-}
-
-function history () {
-
-  document.getElementById('background').style.display="none"
-  document.getElementById('win').style.display="block"
-  document.getElementById('history-position').style.display="block"
-
-  let nextLevel = document.getElementsByClassName('nextLevel')[0]
-  nextLevel.onclick = selectLevel
-}
-// Se encarga de detectar nivel y limpiar el nivel anterior
-function startLevel() {
-
-  var level = currentLevel
-  //var que contiene los datos del nivel en el que estamos
-  
-  //crear  mapa y matriz vacia
-  mapa = new Array(level.row).fill(null).map(e => new Array(level.colm).fill(0))
-  mapaRow  = level.row
-  mapaColm = level.colm
-
-  //vaciar cajas y gemas de nivel anterior
-  caja.length  = 0
-  gema.length  = 0
-  stone.length = 0
-  
-  //actualiuza posicion de personaje
-  personaje = {...level.personaje}
-  tp = {...level.tp}
-
-  //actualiuza posicion de cajas
-  for (let i = 0; i < level.cajas.length; i++) {
-    var obj = {...level.cajas[i]}
-    caja.push(obj)
-
-  }
-
-  //actualiuza posicion de gemas
-  for (let i = 0; i < level.gemas.length; i++) {
-
-    const obj = {...level.gemas[i]}
-    gema.push(obj)
-
-  }
-
-  //actualiuza posicion de stone
-  for (let i = 0; i < level.stone.length; i++) {
-
-    var obj = {...level.stone[i]}
-    stone.push(obj)
-
-  }
-  updateLevel(level)
-}
-
-
 //funcion iniciadora
-  principalMenu()
-  // selectLevel()
+principalMenu()
 
 
 //detecta boton que pulsemos en teclado
@@ -484,7 +490,6 @@ document.addEventListener('keydown', function (e) {
     personaje.dir = 9
     move()
   }
-  
 })
 
 function checkVolume () {
@@ -499,14 +504,12 @@ function checkVolume () {
     soundGame.play()
     generalVolume = true;
   }
-  
 }
 
 function soundDown () {
   if (countVolume > 0 ) {
     countVolume = parseFloat(countVolume) - 0.1;
     countVolume = countVolume.toFixed(1);
-
   }
 
   soundGame.volume = countVolume;
@@ -514,13 +517,13 @@ function soundDown () {
   boxOnGema.volume = countVolume;
   winSound.volume  = countVolume;
 
-  if (countVolume === '0.0'){
+  if (countVolume === '0.0') {
     volume.classList.remove('volumeOn')
     volume.classList.add('volumeOff')
   }
 }
 
-function soundUp (){
+function soundUp () {
   if (countVolume < 1 ) {
     countVolume = parseFloat(countVolume) + 0.1;
     countVolume = countVolume.toFixed(1);
@@ -535,28 +538,27 @@ function soundUp (){
     volume.classList.remove('volumeOff')
     volume.classList.add('volumeOn')
   }
-
 }
+
 var engranajeStatus = true
 
 function volumeOP () {
-  if (engranajeStatus === true){
+  if (engranajeStatus === true) {
     document.getElementById('options').style.display = "inline-block"
   }else {
     document.getElementById('options').style.display = "none"
-
   }
   engranajeStatus = !engranajeStatus
 }
+
+var volumeDown = document.getElementById('buttonDown')
+volumeDown.onclick = soundDown
 
 var volume = document.getElementById('buttonSound')
 volume.onclick = checkVolume
 
 var volumeUp = document.getElementById('buttonUp')
 volumeUp.onclick = soundUp
-
-var volumeDown = document.getElementById('buttonDown')
-volumeDown.onclick = soundDown
 
 var options = document.getElementById('engranaje')
 options.onclick = volumeOP
