@@ -22,4 +22,8 @@ Just need the keyboard to play:
  * Directional keys ( to move the character inside the window).
  * R or r (press r to restart level)
 
+## Contributors:
 
+[Saulo Garcia](https://github.com/SauloGD)
+
+[Brenda Martin](https://github.com/BrenMB)
